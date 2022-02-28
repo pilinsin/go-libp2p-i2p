@@ -1,0 +1,64 @@
+
+[Install go-i2pd](https://github.com/eyedeekay/go-i2pd)
+
+install build dependencies required for i2pd
+```bash
+export GOPATH=~/go
+export USE_STATIC=yes
+USE_STATIC=yes
+export LDFLAGS=-static
+LDFLAGS=-static
+GXXFLAGS=-static
+export GXXFLAGS=-static
+CXXFLAGS=-static
+export CXXFLAGS=-static
+CGO_GXXFLAGS=-static
+export CGO_GXXFLAGS=-static
+CGO_CFLAGS=-static
+export CGO_CFLAGS=-static
+CGO_CXXFLAGS=-static
+export CGO_CXXFLAGS=-static
+CGO_CPPFLAGS=-static
+export CGO_CPPFLAGS=-static
+LINUXFLAGS=$(which hdiutil || echo /usr/lib/x86_64-linux-gnu/libboost_system.a /usr/lib/x86_64-linux-gnu/libboost_date_time.a /usr/lib/x86_64-linux-gnu/libboost_filesystem.a /usr/lib/x86_64-linux-gnu/libboost_program_options.a /usr/lib/x86_64-linux-gnu/libssl.a /usr/lib/x86_64-linux-gnu/libcrypto.a /usr/lib/x86_64-linux-gnu/libz.a)
+OSXFLAGS=$(which hdiutil && echo /usr/local/opt/boost/lib/libboost_system.a /usr/local/opt/boost/lib/libboost_date_time.a /usr/local/opt/boost/lib/libboost_filesystem.a /usr/local/opt/boost/lib/libboost_program_options.a /usr/local/opt/openssl@1.1/lib/libssl.a /usr/local/opt/openssl@1.1/lib/libcrypto.a)
+FLAGS="$(OSXFLAGS) $(LINUXFLAGS)"
+```
+
+In your project root:
+```bash
+git clone https://github.com/eyedeekay/go-i2pd
+```
+
+Add the following lines to the project's go.mod:
+```bash
+require github.com/eyedeekay/go-i2pd v0.0.0-20220213070306-9807541b2dfc
+replace github.com/eyedeekay/go-i2pd v0.0.0-20220213070306-9807541b2dfc => ./go-i2pd
+```
+
+```bash
+cd go-i2pd/i2pd
+make clean
+make wrapper
+```
+
+Edit go-i2pd/goi2pd/goapi.go:
+```Go
+import (
+	"os"
+
+	//api "github.com/eyedeekay/go-i2pd/i2pd/libi2pd_wrapper"
+)
+
+// #cgo CFLAGS: -I${SRCDIR}/../i2pd/libi2pd_wrapper
+// #cgo CXXFLAGS: -I${SRCDIR}/../i2pd/i18n -I${SRCDIR}/../i2pd/libi2pd_client -I${SRCDIR}/../i2pd/libi2pd -g -Wall -Wextra -Wno-unused-parameter -pedantic -Wno-psabi -fPIC -D__AES__ -maes
+// #cgo LDFLAGS: -L${SRCDIR}/../ -l:i2pd/libi2pdwrapper.a -l:i2pd/libi2pd.a -l:i2pd/libi2pdclient.a -l:i2pd/libi2pdlang.a -latomic -lcrypto -lssl -lz -lboost_system -lboost_date_time -lboost_filesystem -lboost_program_options -lpthread -lstdc++
+
+...
+
+C.C_StartI2P()
+C.C_StopI2P()
+```
+
+i2pd log is output to ~/.go-i2pd/go-i2pd.log
+
