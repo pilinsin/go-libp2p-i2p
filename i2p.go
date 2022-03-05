@@ -35,7 +35,6 @@ func makeI2pTpBuilder() (i2ptp.TransportBuilderFunc, ma.Multiaddr, error){
 	return i2ptp.I2PTransportBuilder(sam, keys, "45793", int(seed))
 }
 
-
 func NewI2pHost(seeds ...io.Reader) (host.Host, error){
 	tpBuilder, listenAddr, err := makeI2pTpBuilder()
 	if err != nil{return nil, err}
@@ -47,6 +46,8 @@ func NewI2pHost(seeds ...io.Reader) (host.Host, error){
 		libp2p.Transport(tpBuilder),
 		libp2p.ListenAddrs(listenAddr),
 		libp2p.Identity(priv),
+		libp2p.DefaultSecurity,
+		libp2p.ForceReachabilityPublic(),
+		libp2p.EnableRelay(),
 	)
 }
-
