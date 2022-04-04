@@ -6,7 +6,7 @@ import(
 	"crypto/rand"
 
 	sam3 "github.com/eyedeekay/sam3"
-	i2ptp "github.com/allhailjarjar/go-libp2p-i2p-transport"
+	i2ptp "github.com/pilinsin/go-libp2p-i2p-transport"
 	ma "github.com/multiformats/go-multiaddr"
 	libp2p "github.com/libp2p/go-libp2p"
 	p2pcrypto "github.com/libp2p/go-libp2p-core/crypto"
@@ -32,7 +32,7 @@ func makeI2pTpBuilder() (i2ptp.TransportBuilderFunc, ma.Multiaddr, error){
 	seedBytes := make([]byte, 8)
 	rand.Read(seedBytes)
 	seed, _ := binary.Varint(seedBytes)
-	return i2ptp.I2PTransportBuilder(sam, keys, "45793", int(seed))
+	return i2ptp.I2PTransportBuilder(nil, sam, keys, "45793", int(seed))
 }
 
 func NewI2pHost(seeds ...io.Reader) (host.Host, error){
