@@ -1,6 +1,6 @@
 package i2p
 
-import(
+import (
 	"testing"
 	"time"
 
@@ -9,7 +9,7 @@ import(
 	crdt "github.com/pilinsin/p2p-verse/crdt"
 )
 
-func TestTimeController(t *testing.T){
+func TestTimeController(t *testing.T) {
 	b, err := NewI2pHost()
 	checkError(t, err)
 	bstrp, err := pv.NewBootstrap(b)
@@ -17,11 +17,10 @@ func TestTimeController(t *testing.T){
 	bAddrInfo := bstrp.AddrInfo()
 	t.Log("bootstrap AddrInfo: ", bAddrInfo)
 
-
 	priv, pub, _ := p2pcrypto.GenerateEd25519Key(nil)
 	pid := crdt.PubKeyToStr(pub)
 	accesses := make(chan string)
-	go func(){
+	go func() {
 		defer close(accesses)
 		accesses <- pid
 	}()
@@ -31,8 +30,8 @@ func TestTimeController(t *testing.T){
 
 	begin := time.Now()
 	end := begin.Add(time.Hour)
-	eps := time.Minute*2
-	cool := time.Second*10
+	eps := time.Minute * 2
+	cool := time.Second * 10
 	n := 1
 	vt := crdt.NewVerse(NewI2pHost, "tc/t", false, false, bAddrInfo)
 	tc, err := vt.NewTimeController("tc", begin, end, eps, cool, n)
@@ -45,15 +44,16 @@ func TestTimeController(t *testing.T){
 	defer db0.Close()
 	t.Log("db0 generated")
 
-
 	v1 := crdt.NewVerse(NewI2pHost, "tc/tb", false, false, bAddrInfo)
 	var db1 crdt.IStore
-	for{
+	for {
 		db1, err = v1.LoadStore(db0.Address(), "updatableSignature")
-		if err == nil{break}
-		if err.Error() == "load error: sync timeout"{
+		if err == nil {
+			break
+		}
+		if err.Error() == "load error: sync timeout" {
 			t.Log(err, ", now reloading...")
-			time.Sleep(time.Second*10)
+			time.Sleep(time.Second * 10)
 			continue
 		}
 		checkError(t, err)
@@ -61,18 +61,15 @@ func TestTimeController(t *testing.T){
 	defer db1.Close()
 	t.Log("db1 generated")
 
-
 	checkError(t, db0.Put("aaa", []byte("meow meow ^.^")))
 	t.Log("put done")
 	//wait for db1.tc.AutoGrant()
-	time.Sleep(time.Minute*2)
-
+	time.Sleep(time.Minute * 2)
 
 	checkError(t, db1.Sync())
-	v10, err := db1.Get(crdt.PubKeyToStr(opts0.Pub)+"/aaa")
+	v10, err := db1.Get(crdt.PubKeyToStr(opts0.Pub) + "/aaa")
 	checkError(t, err)
 	t.Log("db1.Get:", string(v10))
-
 
 	t.Log("finished")
 }
