@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/binary"
 	"io"
+	"strings"
 
 	sam3 "github.com/eyedeekay/sam3"
 	libp2p "github.com/libp2p/go-libp2p"
@@ -14,6 +15,7 @@ import (
 )
 
 const SAMHost = "localhost:7656"
+const sam3Err = "Failed to create"
 
 func getSeed(seeds ...io.Reader) io.Reader {
 	if len(seeds) == 0 {
@@ -36,12 +38,17 @@ func makeI2pTpBuilder() (i2ptp.TransportBuilderFunc, ma.Multiaddr, error) {
 	seedBytes := make([]byte, 8)
 	rand.Read(seedBytes)
 	seed, _ := binary.Varint(seedBytes)
-	return i2ptp.I2PTransportBuilder(nil, sam, keys, "45793", int(seed))
+	return i2ptp.I2PTransportBuilder(sam, keys, "45793", int(seed))
 }
 
 func NewI2pHost(seeds ...io.Reader) (host.Host, error) {
-	tpBuilder, listenAddr, err := makeI2pTpBuilder()
-	if err != nil {
+	var tpBuilder i2ptp.TransportBuilderFunc
+	var listenAddr ma.Multiaddr
+	var err error
+	for{
+		tpBuilder, listenAddr, err = makeI2pTpBuilder()
+		if err == nil{break}
+		if strings.HasPrefix(err.Error(), sam3Err){continue}
 		return nil, err
 	}
 
