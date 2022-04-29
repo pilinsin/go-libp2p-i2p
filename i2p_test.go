@@ -10,7 +10,7 @@ import (
 
 //go test -test.v=true .
 //go test -test.v=true -timeout 1h .
-/*
+
 func checkError(t *testing.T, err error, args ...interface{}) {
 	if err != nil {
 		args0 := make([]interface{}, len(args)+1)
@@ -20,35 +20,56 @@ func checkError(t *testing.T, err error, args ...interface{}) {
 		t.Fatal(args0...)
 	}
 }
-*/
 
-func TestPubSub(t *testing.T) {
+
+func testPubSub(t *testing.T) {
 	//closer, err := WaitForSamReady()
 	//defer closer()
 	//if err != nil{return}
 
 	pubsub.BaseTestPubSub(t, NewI2pHost)
 }
-
-
-func TestIpfs(t *testing.T){
+func testIpfs(t *testing.T){
 	ipfs.BaseTestIpfs(t, NewI2pHost)
 }
-func TestAccess(t *testing.T){
+func testAccess(t *testing.T){
 	crdt.BaseTestAccessController(t, NewI2pHost)
 }
-func TestLog(t *testing.T){
+func testLog(t *testing.T){
 	crdt.BaseTestLogStore(t, NewI2pHost)
 }
-func TestHash(t *testing.T){
+func testHash(t *testing.T){
 	crdt.BaseTestHashStore(t, NewI2pHost)
 }
-func TestSignature(t *testing.T){
+func testSignature(t *testing.T){
 	crdt.BaseTestSignatureStore(t, NewI2pHost)
 }
-func TestTime(t *testing.T){
+func testTime(t *testing.T){
 	crdt.BaseTestTimeController(t, NewI2pHost)
 }
-func TestUpdatableSignature(t *testing.T){
+func testUpdatableSignature(t *testing.T){
 	crdt.BaseTestUpdatableSignatureStore(t, NewI2pHost)
+}
+
+func TestI2p(t *testing.T){
+	checkError(t, StartI2pRouter())
+
+	t.Log("===== pubsub =====")
+	testPubSub(t)
+	t.Log("===== ipfs =====")
+	testIpfs(t)
+	t.Log("===== log =====")
+	testLog(t)
+	t.Log("===== hash =====")
+	testHash(t)
+	t.Log("===== signature =====")
+	testSignature(t)
+	t.Log("===== updatablesignature =====")
+	testUpdatableSignature(t)
+	t.Log("===== access =====")
+	testAccess(t)
+	t.Log("===== time =====")
+	testTime(t)
+
+	StopI2pRouter()
 }
