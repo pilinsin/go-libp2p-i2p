@@ -2,6 +2,8 @@ module github.com/pilinsin/go-libp2p-i2p
 
 go 1.17
 
+require github.com/eyedeekay/sam3 v0.32.33-0.20210718190649-31b8d62f0461
+
 require (
 	github.com/Stebalien/go-bitfield v0.0.1 // indirect
 	github.com/andybalholm/brotli v1.0.0 // indirect
@@ -27,7 +29,6 @@ require (
 	github.com/eyedeekay/checki2cp v0.0.18 // indirect
 	github.com/eyedeekay/go-i2cp v0.0.0-20190716135428-6d41bed718b0 // indirect
 	github.com/eyedeekay/goSam v0.32.31-0.20210122211817-f97683379f23 // indirect
-	github.com/eyedeekay/sam3 v0.32.33-0.20210718190649-31b8d62f0461 // indirect
 	github.com/eyedeekay/zerobundle v0.0.0-20210522053512-32c20fe179d3 // indirect
 	github.com/eyedeekay/zerobundle/parts/0 v0.0.0-20210508034048-7cd2a4edba67 // indirect
 	github.com/eyedeekay/zerobundle/parts/1 v0.0.0-20210508034048-7cd2a4edba67 // indirect
@@ -288,7 +289,7 @@ require (
 	github.com/pbnjay/memory v0.0.0-20210728143218-7b4eea64cf58 // indirect
 	github.com/pierrec/lz4 v2.5.2+incompatible // indirect
 	github.com/pilinsin/go-libp2p-i2p-transport v0.0.0-20220420124841-af137f670078 // indirect
-	github.com/pilinsin/p2p-verse v0.0.0-20220418115419-afaef601d25a // indirect
+	github.com/pilinsin/p2p-verse v0.0.0-20220502035705-29c94f5e768b // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/polydawn/refmt v0.0.0-20201211092308-30ac6d18308e // indirect
 	github.com/prometheus/client_golang v1.12.1 // indirect
