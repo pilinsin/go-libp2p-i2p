@@ -6,6 +6,8 @@ import(
 	"time"
 	"runtime"
 	"path/filepath"
+	"os"
+	"os/exec"
 
 	zero "github.com/eyedeekay/zerobundle"
 	zeroim "github.com/eyedeekay/zerobundle/import"
@@ -22,6 +24,53 @@ func latestZero() string{
 	}
 }
 
+func latestZeroDir() string{
+	var platform string
+	switch runtime.GOOS{
+	case "windows":
+		platform = "win-gui"
+	case "darwin":
+		platform = "mac-gui"
+	default:
+		platform = "linux"
+	}
+
+	return filepath.Join(".", "i2p-zero-"+platform+"."+zeroim.ZERO_VERSION)
+}
+func baseArgs() string{
+	args := "--i2p.dir.base=base"
+	os.MkdirAll("base", 0755)
+	return args
+}
+func configArgs() string{
+	args := "--i2p.dir.config=config"
+	os.MkdirAll("config", 0755)
+	return args
+}
+var cmd *exec.Cmd
+func commandZero() (*exec.Cmd, error){
+	if err := zeroim.Unpack(""); err != nil{
+		log.Println(err)
+	}
+
+	latest := latestZero()
+	latestAbs, err := filepath.Abs(filepath.Join(".", latestZeroDir(), latest))
+	if err != nil{return nil, err}
+	cmd = exec.Command(latestAbs, baseArgs(), configArgs())
+	curAbsDir, _ := filepath.Abs(".")
+	cmd.Dir = curAbsDir
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd, nil
+}
+func startZero() error{
+	if zeroCmd, err := commandZero(); err != nil{
+		return err
+	}else{
+		return zeroCmd.Start()
+	}
+}
+
 func StartI2pRouter() error{
 	if err := zeroim.Unpack(""); err != nil{
 		log.Println(err)
@@ -31,7 +80,7 @@ func StartI2pRouter() error{
 	log.Println("latest zero version is:", latest)
 	if !zero.CheckZeroIsRunning(){
 		log.Println("zero doesn't appear to be running.", latest)
-		if err := zero.StartZero(); err != nil{
+		if err := startZero(); err != nil{
 			return err
 		}
 	}
@@ -52,5 +101,11 @@ func StartI2pRouter() error{
 }
 // if i2p or i2pd are installed, StopI2pRouter does not stop the router.
 func StopI2pRouter(){
-	zero.StopZero()
+	switch runtime.GOOS {
+	case "windows":
+		cmd.Process.Signal(os.Kill)
+	default:
+		cmd.Process.Signal(os.Interrupt)
+	}
+	//zero.StopZero()
 }
