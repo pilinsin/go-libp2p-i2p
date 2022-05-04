@@ -101,6 +101,7 @@ func StartI2pRouter() error{
 }
 // if i2p or i2pd are installed, StopI2pRouter does not stop the router.
 func StopI2pRouter(){
+	if cmd == nil{return}
 	switch runtime.GOOS {
 	case "windows":
 		cmd.Process.Signal(os.Kill)
