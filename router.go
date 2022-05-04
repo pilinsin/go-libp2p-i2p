@@ -70,8 +70,7 @@ func startZero() error{
 		return zeroCmd.Start()
 	}
 }
-
-func StartI2pRouter() error{
+func startI2pZeroRouter() error{
 	if err := zeroim.Unpack(""); err != nil{
 		log.Println(err)
 	}
@@ -96,8 +95,27 @@ func StartI2pRouter() error{
 
 	time.Sleep(time.Second)
 	return nil
+}
+func isI2pRouterAvailable() error{
+	if ok, conn := zero.Available(); !ok{
+		return fmt.Errorf("i2p router in not available now")
+	}else{
+		log.Println("starting SAM")
+		time.Sleep(3*time.Second)
+		if err := zero.SAM(conn); err != nil{
+			return err
+		}
+	}
+	return nil
+}
 
-	//return zero.ZeroAsFreestandingSAM()
+func StartI2pRouter() error{
+	switch runtime.GOOS {
+	case "android", "ios":
+		return isI2pRouterAvailable()
+	default:
+		return startI2pZeroRouter()
+	}
 }
 // if i2p or i2pd are installed, StopI2pRouter does not stop the router.
 func StopI2pRouter(){
@@ -108,5 +126,4 @@ func StopI2pRouter(){
 	default:
 		cmd.Process.Signal(os.Interrupt)
 	}
-	//zero.StopZero()
 }
