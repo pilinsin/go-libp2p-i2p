@@ -53,7 +53,8 @@ func StopI2pRouter(){
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		isI2pOwner = false
-		cmd.Run()
+		cmd.Start()
+		time.Sleep(time.Second*3)
 	}
 }
 
