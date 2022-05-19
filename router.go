@@ -23,17 +23,20 @@ func IsSamRunning() bool{
 }
 
 
-var isI2pOwner bool
-
-func StartI2pRouter() error{
+type I2pRouter struct{
+	isOwner bool
+}
+func NewI2pRouter() *I2pRouter{
+	return &I2pRouter{}
+}
+func (rt *I2pRouter) Start() error{
 	if ok := IsI2pRunning(); !ok{
 		cmd := exec.Command("i2prouter", "start")
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Start(); err != nil{return err}
-		isI2pOwner = true
+		rt.isOwner = true
 	}
-
 	ticker := time.NewTicker(time.Second)
 	defer ticker.Stop()
 	for{
@@ -46,13 +49,12 @@ func StartI2pRouter() error{
 		}
 	}
 }
-
-func StopI2pRouter(){
-	if isI2pOwner{
+func (rt *I2pRouter) Stop(){
+	if rt.isOwner{
 		cmd := exec.Command("i2prouter", "stop")
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
-		isI2pOwner = false
+		rt.isOwner = false
 		cmd.Start()
 	}
 }

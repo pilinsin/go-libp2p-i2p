@@ -52,7 +52,8 @@ func testUpdatableSignature(t *testing.T){
 }
 
 func TestI2p(t *testing.T){
-	checkError(t, StartI2pRouter())
+	rt := NewI2pRouter()
+	checkError(t, rt.Start())
 
 	t.Log("===== pubsub =====")
 	testPubSub(t)
@@ -71,5 +72,5 @@ func TestI2p(t *testing.T){
 	t.Log("===== time =====")
 	testTime(t)
 
-	StopI2pRouter()
+	rt.Stop()
 }
