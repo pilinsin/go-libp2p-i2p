@@ -1,6 +1,7 @@
 package i2p
 
 import(
+	"errors"
 	"time"
 	"os"
 	"os/exec"
@@ -9,12 +10,15 @@ import(
 	sam3 "github.com/eyedeekay/sam3"
 )
 
+func HasI2pRouter() bool{
+	cmd := exec.Command("i2prouter", "status")
+	stat, err := cmd.Output()
+	return err != nil || !strings.Contains(string(stat), "Command 'i2prouter' not found")
+}
 func IsI2pRunning() bool{
 	cmd := exec.Command("i2prouter", "status")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
 	stat, err := cmd.Output()
-	return err == nil && strings.HasPrefix(string(stat), "I2P Service is running")
+	return err == nil && strings.Contains(string(stat), "I2P Service is running")
 }
 func IsSamRunning() bool{
 	_, err := sam3.NewSAM(SAMHost)
@@ -30,6 +34,9 @@ func NewI2pRouter() *I2pRouter{
 	return &I2pRouter{}
 }
 func (rt *I2pRouter) Start() error{
+	if has := HasI2pRouter(); !has{
+		return errors.New("i2p is not installed")
+	}
 	if ok := IsI2pRunning(); !ok{
 		cmd := exec.Command("i2prouter", "start")
 		cmd.Stdout = os.Stdout
