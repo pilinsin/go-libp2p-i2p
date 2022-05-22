@@ -57,7 +57,6 @@ func TestI2p(t *testing.T){
 
 	t.Log("===== pubsub =====")
 	testPubSub(t)
-/*
 	t.Log("===== ipfs =====")
 	testIpfs(t)
 	t.Log("===== log =====")
@@ -72,7 +71,7 @@ func TestI2p(t *testing.T){
 	testAccess(t)
 	t.Log("===== time =====")
 	testTime(t)
-*/
+
 
 	rt.Stop()
 }
