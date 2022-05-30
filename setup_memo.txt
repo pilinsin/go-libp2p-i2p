@@ -1,2 +1,0 @@
-add to go.mod:
-github.com/eyedeekay/sam3 v0.32.33-0.20210718190649-31b8d62f0461
