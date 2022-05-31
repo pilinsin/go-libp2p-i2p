@@ -45,10 +45,14 @@ func NewI2pHost(seeds ...io.Reader) (host.Host, error) {
 	var tpBuilder i2ptp.TransportBuilderFunc
 	var listenAddr ma.Multiaddr
 	var err error
-	for{
+	for {
 		tpBuilder, listenAddr, err = makeI2pTpBuilder()
-		if err == nil{break}
-		if strings.HasPrefix(err.Error(), sam3Err){continue}
+		if err == nil {
+			break
+		}
+		if strings.HasPrefix(err.Error(), sam3Err) {
+			continue
+		}
 		return nil, err
 	}
 

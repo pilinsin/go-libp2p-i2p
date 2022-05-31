@@ -7,7 +7,7 @@ require (
 	github.com/libp2p/go-libp2p v0.20.0
 	github.com/libp2p/go-libp2p-core v0.16.1
 	github.com/multiformats/go-multiaddr v0.5.0
-	github.com/pilinsin/go-libp2p-i2p-transport v0.0.0-20220529120622-c018265695cc
+	github.com/pilinsin/go-libp2p-i2p-transport v0.0.0-20220531223145-5313be76581a
 )
 
 require (
@@ -34,7 +34,7 @@ require (
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/elastic/gosigar v0.14.2 // indirect
-	github.com/eyedeekay/i2pkeys v0.0.0-20220310052025-204d4ae6dcae // indirect
+	github.com/eyedeekay/i2pkeys v0.0.0-20220310055120-b97558c06ac8 // indirect
 	github.com/flynn/noise v1.0.0 // indirect
 	github.com/francoispqt/gojay v1.2.13 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect

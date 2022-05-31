@@ -212,6 +212,8 @@ github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7
 github.com/eyedeekay/goSam v0.32.31-0.20210122211817-f97683379f23/go.mod h1:UgJnih/LpotwKriwVPOEa6yPDM2NDdVrKfLtS5DOLPE=
 github.com/eyedeekay/i2pkeys v0.0.0-20220310052025-204d4ae6dcae h1:SwegHeaf4pkDMB24UltIvJlj2+nd06QUZAbs8BDyfjM=
 github.com/eyedeekay/i2pkeys v0.0.0-20220310052025-204d4ae6dcae/go.mod h1:W9KCm9lqZ+Ozwl3dwcgnpPXAML97+I8Jiht7o5A8YBM=
+github.com/eyedeekay/i2pkeys v0.0.0-20220310055120-b97558c06ac8 h1:9QLD6ZWn1Evc0bT971aArjkit94+s5FMc2stDfEpen4=
+github.com/eyedeekay/i2pkeys v0.0.0-20220310055120-b97558c06ac8/go.mod h1:W9KCm9lqZ+Ozwl3dwcgnpPXAML97+I8Jiht7o5A8YBM=
 github.com/eyedeekay/sam3 v0.32.32/go.mod h1:qRA9KIIVxbrHlkj+ZB+OoxFGFgdKeGp1vSgPw26eOVU=
 github.com/eyedeekay/sam3 v0.33.2 h1:WP+fD4oPxiE0cA+gTKRNiZo3SrGI2+5FkzrnU/6Mmz4=
 github.com/eyedeekay/sam3 v0.33.2/go.mod h1:sPtlI4cRm7wD0UywOzLPvvdY1G++vBSK3n+jiIGqWlU=
@@ -1217,6 +1219,8 @@ github.com/pierrec/lz4 v1.0.2-0.20190131084431-473cd7ce01a1/go.mod h1:3/3N9NVKO0
 github.com/pierrec/lz4 v2.0.5+incompatible/go.mod h1:pdkljMzZIN41W+lC3N2tnIh5sFi+IEE17M5jbnwPHcY=
 github.com/pilinsin/go-libp2p-i2p-transport v0.0.0-20220529120622-c018265695cc h1:Gt8ttMv5NmHcyRASYtW62tsE0SytospKC5qldeNfYec=
 github.com/pilinsin/go-libp2p-i2p-transport v0.0.0-20220529120622-c018265695cc/go.mod h1:upHG/zUzgU6e2AL++RAxdjmBVTeSGjWmX9FfirhFFCQ=
+github.com/pilinsin/go-libp2p-i2p-transport v0.0.0-20220531223145-5313be76581a h1:jGK1rTkbnna8rptXIs5ee9dg29rKbRlblYpnCxsppW8=
+github.com/pilinsin/go-libp2p-i2p-transport v0.0.0-20220531223145-5313be76581a/go.mod h1:upHG/zUzgU6e2AL++RAxdjmBVTeSGjWmX9FfirhFFCQ=
 github.com/pilinsin/p2p-verse v0.0.0-20220530100219-7d8ba3359b5d h1:O0SeskRpaE9+YBW1VckPG1i5OD16kwxMZjyfd/nmfjw=
 github.com/pilinsin/p2p-verse v0.0.0-20220530100219-7d8ba3359b5d/go.mod h1:cFEUaXXMYQA5OgfkvV5CuWrvL7ufBSsX0o58U4j3AlE=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
