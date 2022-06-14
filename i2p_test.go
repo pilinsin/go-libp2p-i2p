@@ -57,7 +57,7 @@ func testSignature(t *testing.T) {
 }
 func testTime(t *testing.T) {
 	now := time.Now()
-	crdt.BaseTestTimeController(t, NewI2pHost)
+	crdt.BaseTestTimeLimit(t, NewI2pHost)
 	t.Log(time.Now().Sub(now).String())
 }
 func testUpdatableSignature(t *testing.T) {
