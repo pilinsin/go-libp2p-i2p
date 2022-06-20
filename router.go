@@ -49,12 +49,9 @@ func (rt *I2pRouter) Start() error {
 	ticker := time.NewTicker(time.Second)
 	defer ticker.Stop()
 	for {
-		select {
-		case <-ticker.C:
-			if IsSamRunning() {
-				return nil
-			}
-		default:
+		<-ticker.C
+		if IsSamRunning() {
+			return nil
 		}
 	}
 }

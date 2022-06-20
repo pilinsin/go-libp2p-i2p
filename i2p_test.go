@@ -22,53 +22,62 @@ func checkError(t *testing.T, err error, args ...interface{}) {
 	}
 }
 
+func testHost(t *testing.T) {
+	h, err := NewI2pHost()
+	checkError(t, err)
+	checkError(t, h.Close())
+}
+
 func testPubSub(t *testing.T) {
 	//closer, err := WaitForSamReady()
 	//defer closer()
 	//if err != nil{return}
 	now := time.Now()
 	pubsub.BaseTestPubSub(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 func testIpfs(t *testing.T) {
 	now := time.Now()
 	ipfs.BaseTestIpfs(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 func testAccess(t *testing.T) {
 	now := time.Now()
 	crdt.BaseTestAccessController(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 func testLog(t *testing.T) {
 	now := time.Now()
 	crdt.BaseTestLogStore(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 func testHash(t *testing.T) {
 	now := time.Now()
 	crdt.BaseTestHashStore(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 func testSignature(t *testing.T) {
 	now := time.Now()
 	crdt.BaseTestSignatureStore(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 func testTime(t *testing.T) {
 	now := time.Now()
 	crdt.BaseTestTimeLimit(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 func testUpdatableSignature(t *testing.T) {
 	now := time.Now()
 	crdt.BaseTestUpdatableSignatureStore(t, NewI2pHost)
-	t.Log(time.Now().Sub(now).String())
+	t.Log(time.Since(now).String())
 }
 
 func TestI2p(t *testing.T) {
 	rt := NewI2pRouter()
 	checkError(t, rt.Start())
+
+	t.Log("===== host =====")
+	testHost(t)
 
 	t.Log("===== pubsub =====")
 	testPubSub(t)
