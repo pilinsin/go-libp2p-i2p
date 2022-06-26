@@ -1305,6 +1305,8 @@ github.com/pilinsin/p2p-verse v0.0.0-20220623030437-9cc950f5f6e0 h1:XPmN6YX8UeS1
 github.com/pilinsin/p2p-verse v0.0.0-20220623030437-9cc950f5f6e0/go.mod h1:5ofj+fdCn4s4FRXCt9VpYzbBiDs8wxHmQq05cX7UjsM=
 github.com/pilinsin/p2p-verse v0.0.0-20220625090501-ce6ca4bcc93e h1:3B7GmDXjnL96gXZ6GYI7uOAbMK7UaTjHrJXbygfD4JA=
 github.com/pilinsin/p2p-verse v0.0.0-20220625090501-ce6ca4bcc93e/go.mod h1:lddHYzQL5oMOCOvdzWuUJPHNEhA15zXQPkqBSvpC344=
+github.com/pilinsin/p2p-verse v0.0.0-20220626043340-bd814719b134 h1:gKFrXN9jNSduoceMI9fl8zz/pueifqQNAN3Rn4aAkac=
+github.com/pilinsin/p2p-verse v0.0.0-20220626043340-bd814719b134/go.mod h1:lddHYzQL5oMOCOvdzWuUJPHNEhA15zXQPkqBSvpC344=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
