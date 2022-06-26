@@ -82,7 +82,7 @@ func (h *i2pHost) Close() error{
 			err = err0
 		}
 	}
-
+	
 	return err
 }
 
