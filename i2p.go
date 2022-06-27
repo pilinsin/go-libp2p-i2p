@@ -41,9 +41,10 @@ func makeI2pTpBuilder() (i2ptp.TransportBuilderFunc, ma.Multiaddr, error) {
 	return i2ptp.I2PTransportBuilder(sam, keys, "45793", int(seed))
 }
 
-type i2pHost struct{
+type i2pHost struct {
 	host.Host
 }
+
 func NewI2pHost(seeds ...io.Reader) (host.Host, error) {
 	var tpBuilder i2ptp.TransportBuilderFunc
 	var listenAddr ma.Multiaddr
@@ -73,16 +74,15 @@ func NewI2pHost(seeds ...io.Reader) (host.Host, error) {
 	return &i2pHost{Host: h}, err
 }
 
-func (h *i2pHost) Close() error{
+func (h *i2pHost) Close() error {
 	var err error
 	pids := h.Network().Peers()
-	for _, pid := range pids{
+	for _, pid := range pids {
 		err0 := h.Network().ClosePeer(pid)
-		if err0 != nil{
+		if err0 != nil {
 			err = err0
 		}
 	}
-	
+
 	return err
 }
-
